@@ -6,6 +6,11 @@ on:
       # Update this when we're ready to publish the next Major version
       - "v1*"
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
