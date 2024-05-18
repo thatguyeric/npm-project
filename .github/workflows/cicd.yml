@@ -80,4 +80,5 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: true
-      - run: npm run publish@${{ steps.bump-version.outputs.newTag }}
+      - run: npm ci
+      - run: npm publish --provenance --access public --tag ${{ steps.bump-version.outputs.newTag }}

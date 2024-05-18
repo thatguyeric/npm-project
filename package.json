@@ -12,8 +12,7 @@
     "build": "echo \"build!!\"",
     "test": "echo \"test!!\"",
     "storybook": "storybook dev -p 6006",
-    "docs": "storybook build --docs --output-dir ./docs",
-    "publish": "npm ci && npm publish --provenance --access public"
+    "docs": "storybook build --docs --output-dir ./docs"
   },
   "keywords": [],
   "author": "",
