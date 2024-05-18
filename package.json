@@ -12,7 +12,8 @@
     "build": "echo \"build!!\"",
     "test": "echo \"test!!\"",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "publish": "npm ci && npm publish --provenance --access public"
   },
   "keywords": [],
   "author": "",
