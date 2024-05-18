@@ -65,10 +65,10 @@ jobs:
   release:
     needs: test
     if: github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/release.yml@main
+    uses: thatguyeric/test-1/.github/workflows/release.yml@main
     secrets: inherit
   publish-storybook:
     needs: release
     if: github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/publish-storybook.yml@main
+    uses: thatguyeric/test-1/.github/workflows/publish-storybook.yml@main
     secrets: inherit
