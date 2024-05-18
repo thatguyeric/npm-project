@@ -2,8 +2,7 @@ name: Publish
 
 on:
   push:
-    tag:
-      - "v1*" # Update this when we're ready to publish the next Major version
+    tags: "v1*" # Update this when we're ready to publish the next Major version
 
 permissions:
   contents: write
@@ -13,6 +12,8 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v4
@@ -20,4 +21,9 @@ jobs:
           node-version: 20
           registry-url: "https://registry.npmjs.org"
       - run: npm ci
-      - run: npm publish --provenance --access public
+      - uses: JS-DevTools/npm-publish@v1
+        id: publish
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          provenance: true
+      - run: echo "Published ${{ steps.publish.outputs.name }}@${{ steps.publish.outputs.version }} to NPM"
