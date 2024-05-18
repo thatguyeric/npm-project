@@ -1,5 +1,5 @@
 name: Publish
-# TODO: This seems like it is not getting triggered
+
 on:
   push:
     tag:
