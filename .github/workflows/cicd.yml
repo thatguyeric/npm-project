@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  quality-checks:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,6 +18,19 @@ jobs:
           key: node_modules-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - run: npm install
       - run: npm run lint
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: "npm"
+      - uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: node_modules-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - run: npm install
       - run: npm run check
   build:
     runs-on: ubuntu-latest
@@ -52,10 +65,10 @@ jobs:
   release:
     needs: test
     if: github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/release.yml
+    uses: ./.github/workflows/release.yml@main
     secrets: inherit
   publish-storybook:
     needs: release
     if: github.ref == 'refs/heads/main'
-    uses: ./github/workflows/publish-storybook.yml
+    uses: ./.github/workflows/publish-storybook.yml@main
     secrets: inherit
