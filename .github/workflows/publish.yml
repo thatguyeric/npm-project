@@ -29,5 +29,5 @@ jobs:
         id: publish
         with:
           token: ${{ secrets.NPM_TOKEN }}
-          provenance: true
-      - run: echo "Published ${{ steps.publish.outputs.name }}@${{ steps.publish.outputs.version }} to NPM"
+          access: "public"
+          tag: "latest"
