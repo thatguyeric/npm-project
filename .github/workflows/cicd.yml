@@ -73,12 +73,16 @@ jobs:
         uses: "phips28/gh-action-bump-version@master"
         with:
           tag-prefix: "v"
-      - name: "Create Release"
-        uses: "softprops/action-gh-release@v1"
-        with:
-          tag_name: ${{ steps.bump-version.outputs.newTag }}
-          draft: false
-          prerelease: false
-          generate_release_notes: true
-      - run: npm ci
-      - run: npm publish --provenance --access public --tag ${{ steps.bump-version.outputs.newTag }}
+      # - name: "Create Release"
+      #   id: "create-release"
+      #   uses: "softprops/action-gh-release@v1"
+      #   with:
+      #     tag_name: ${{ steps.bump-version.outputs.newTag }}
+      #     body: "Release ${{ steps.bump-version.outputs.newTag }}"
+      #     draft: false
+      #     prerelease: false
+      #     generate_release_notes: true
+      # - run: echo "${{ steps.create-release.outputs.url }}"
+      - run: gh release create ${{ steps.bump-version.outputs.newTag }} --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
