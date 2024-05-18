@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "echo \"lint!!\"",
+    "check": "echo \"check!!\"",
+    "build": "npm run build-storybook",
+    "test": "echo \"test!!\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
