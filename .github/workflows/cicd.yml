@@ -78,7 +78,7 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: true
-      # - run: npm run publish
+      - run: npm run publish
   publish-storybook:
     needs: release
     if: github.ref == 'refs/heads/main'
