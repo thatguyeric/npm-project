@@ -34,7 +34,7 @@ jobs:
       - run: npm run check
   build:
     runs-on: ubuntu-latest
-    needs: quality-checks
+    needs: [lint, check]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
