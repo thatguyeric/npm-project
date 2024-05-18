@@ -79,20 +79,3 @@ jobs:
           prerelease: false
           generate_release_notes: true
       - run: npm run publish
-  publish-storybook:
-    needs: release
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: "npm"
-      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
-        with:
-          install_command: npm install
-          path: docs
-          checkout: false
-        env:
-          GH_TOKEN: "${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}"
