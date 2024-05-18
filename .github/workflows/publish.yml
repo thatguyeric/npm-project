@@ -1,8 +1,8 @@
 name: Publish
-
+# TODO: This seems like it is not getting triggered
 on:
   push:
-    tags:
+    tag:
       - "v1*" # Update this when we're ready to publish the next Major version
 
 permissions:
