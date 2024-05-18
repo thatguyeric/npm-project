@@ -1,4 +1,4 @@
-name: CI
+name: CICD
 
 on:
   push:
@@ -52,8 +52,10 @@ jobs:
   release:
     needs: test
     if: github.ref == 'refs/heads/main'
-    uses: .github/workflows/release.yml
+    uses: ./.github/workflows/release.yml
+    secrets: inherit
   publish-storybook:
     needs: release
     if: github.ref == 'refs/heads/main'
-    uses: .github/workflows/publish-storybook.yml
+    uses: ./github/workflows/publish-storybook.yml
+    secrets: inherit
