@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "echo \"lint!!\"",
     "check": "echo \"check!!\"",
-    "build": "npm run build-storybook",
+    "build": "echo \"build!!\"",
     "test": "echo \"test!!\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

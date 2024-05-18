@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  quality-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: "npm"
+      - uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: node_modules-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - run: npm install
+      - run: npm run lint
+      - run: npm run check
+  build:
+    runs-on: ubuntu-latest
+    needs: quality-checks
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: "npm"
+      - uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: node_modules-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - run: npm install
+      - run: npm run build
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: "npm"
+      - uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: node_modules-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - run: npm install
+      - run: npm run test
+  release:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    uses: .github/workflows/release.yml
+  publish-storybook:
+    needs: release
+    if: github.ref == 'refs/heads/main'
+    uses: .github/workflows/publish-storybook.yml

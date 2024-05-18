@@ -1,0 +1,27 @@
+name: Build and Publish Storybook to GitHub Pages
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    name: Build and Publish Storybook
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: "npm"
+      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+        with:
+          install_command: npm install
+          path: storybook-static
+          checkout: false
+        env:
+          GH_TOKEN: "${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}"
