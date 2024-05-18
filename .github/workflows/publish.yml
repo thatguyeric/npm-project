@@ -1,8 +1,12 @@
 name: Publish
 
 on:
-  push:
-    tags: "v1*" # Update this when we're ready to publish the next Major version
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publish to NPM"
+        required: true
+        default: "true"
 
 permissions:
   contents: write

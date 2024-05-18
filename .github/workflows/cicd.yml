@@ -57,7 +57,7 @@ jobs:
           key: node_modules-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - run: npm install
       - run: npm run test
-  release:
+  create-release:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
